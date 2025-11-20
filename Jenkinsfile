@@ -29,18 +29,19 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            script {
+           steps{
                 withSonarQubeEnv('SonarQubeServer') {
-                def scannerHome = tool 'SonarScanner'
-                    bat """
-                        \"${scannerHome}\\bin\\sonar-scanner.bat\"
-                        -Dsonar.projectKey=class_5_otp ^
-                        -Dsonar.sources=src ^
-                        -Dsonar.projectName=Class-5_otp ^
-                        -Dsonar.host.url=http://localhost:9000 ^
-                        -Dsonar.login=${env.SONAR_TOKEN} ^
-                        -Dsonar.java.binaries=target/classes
-                    """
+                           script{
+                                def scannerHome = tool 'SonarScanner'
+                                bat """
+                                \"${scannerHome}\\bin\\sonar-scanner.bat\"
+                                -Dsonar.projectKey=class_5_otp ^
+                                -Dsonar.sources=src ^
+                                -Dsonar.projectName=Class-5_otp ^
+                                -Dsonar.host.url=http://localhost:9000 ^
+                                -Dsonar.login=${env.SONAR_TOKEN} ^
+                                -Dsonar.java.binaries=target/classes
+                                """
                 }
             }
         }
